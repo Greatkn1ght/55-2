@@ -1,0 +1,25 @@
+{% extends 'home.html'%}
+{% load static %}
+{% block content %}
+{% for post in posts %}
+    <div class="card" style="width: 18rem;">
+  {% if post.image %}
+  <img src="{{post.image.url}}" class="card-img-top" alt="...">
+  {% else %}
+  <img src="{% static 'image.png'%}" class="card-img-top" alt="">
+  {% endif %}
+  <div class="card-body">
+    <h5 class="card-title">{{post.title}}</h5>
+    <p class="card-text">{{post.content}}</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">{{post.rate}}</li>
+    <li class="list-group-item">{{post.created_at}}</li>
+    <li class="list-group-item">{{post.updated_at}}</li>
+  </ul>
+  <div class="card-body">
+    <a href="/posts/{{post.id}}" class="card-link">Card link</a>
+  </div>
+</div>
+{%endfor%}
+{% endblock %}
