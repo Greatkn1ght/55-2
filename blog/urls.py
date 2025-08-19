@@ -19,12 +19,20 @@ from django.urls import path
 from posts.views import home_page_view, post_list_view, post_detail_view, post_create_view
 from django.conf.urls.static import static
 from django.conf import settings
+from users.views import register_view, login_view, logout_view
 
-urlpatterns = [
-    path("", home_page_view),
+users_patterns = [
+    path("register/", register_view, name="register"),
+    path("login/", login_view, name = "login"),
+    path("logout/", logout_view, name="logout"),
+]
+
+posts_patterns = [
+    path("", home_page_view, name="home"),
     path('admin/', admin.site.urls),
     path("posts/", post_list_view),
     path("posts/<int:post_id>/", post_detail_view),
     path("posts/create/", post_create_view)
-] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+] 
 
+urlpatterns = users_patterns + posts_patterns + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
